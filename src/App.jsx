@@ -47,15 +47,6 @@ function App() {
       } else {
         psw = letterCheck(lettersArr, letterRnd, psw);
       }
-
-      // if (specialCharsChecked) {
-      //   if (Math.random() > 0.25) {
-      //     psw = letterCheck(lettersArr, letterRnd, psw);
-      //   } else {
-      //     psw = psw.concat(specialArr[specialRnd]);
-      //   }
-      //   continue;
-      // }
     }
     setPassword(psw.toString());
     console.log(psw);
@@ -88,82 +79,98 @@ function App() {
   };
 
   return (
-    <div className="m-auto md:max-w-[60%] text-center p-5 md:p-20">
-      <h2 className="text-4xl mb-4">Password Generator</h2>
-      <div>
-        <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
-          <h4 className="text-2xl m-0">Length</h4>
-          <div className="flex w-2/3 my-2">
-            <Slider
-              value={typeof value === "number" ? value : 0}
-              onChange={handleSliderChange}
-              aria-labelledby="input-slider"
-              className="mx-10"
-              min={8}
-              max={30}
-            />
-            <Input
-              value={value}
-              size="small"
-              onChange={handleInputChange}
-              onBlur={handleBlur}
-              inputProps={{
-                step: 1,
-                min: 8,
-                max: 30,
-                type: "number",
-                "aria-labelledby": "input-slider",
-              }}
-            />
+    <div className="relative">
+      <div
+        className="absolute h-[100vh]"
+        style={{
+          backgroundRepeat: "no-repeat",
+          width: "100%",
+          backgroundSize: "cover",
+          backgroundPosition: "center center",
+          backgroundImage: "url(blackboard.jpg)",
+          zIndex: "-1",
+        }}
+      ></div>
+      <div className="flex justify-center items-center h-[100vh] relative">
+        <div className="m-auto w-3/5 text-center p-5 md:p-10 z-1 bg-yellow-200/[.85] rounded">
+          <h2 className="text-5xl mb-4 font-lobster">Password Generator</h2>
+          <hr className="my-10 border border-black" />
+          <div>
+            <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
+              <h4 className="text-4xl m-0 font-lobster">Length</h4>
+              <div className="flex w-2/3 my-2">
+                <Slider
+                  value={typeof value === "number" ? value : 0}
+                  onChange={handleSliderChange}
+                  aria-labelledby="input-slider"
+                  className="mx-10"
+                  min={8}
+                  max={30}
+                />
+                <Input
+                  value={value}
+                  size="small"
+                  onChange={handleInputChange}
+                  onBlur={handleBlur}
+                  inputProps={{
+                    step: 1,
+                    min: 8,
+                    max: 30,
+                    type: "number",
+                    "aria-labelledby": "input-slider",
+                  }}
+                />
+              </div>
+            </div>
+            <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
+              <h4 className="text-4xl m-0 font-lobster">Uppercase</h4>
+              <div className="flex my-2">
+                <Checkbox
+                  checked={uppercaseChecked}
+                  onChange={handleUppercaseChange}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              </div>
+            </div>
+            <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
+              <h4 className="text-4xl m-0 font-lobster">Include Numbers</h4>
+              <div className="flex my-2">
+                <Checkbox
+                  checked={numbersChecked}
+                  onChange={handleNumbersChange}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              </div>
+            </div>
+            <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
+              <h4 className="text-4xl m-0 font-lobster">
+                Include Special Characters
+              </h4>
+              <div className="flex my-2">
+                <Checkbox
+                  checked={specialCharsChecked}
+                  onChange={handleSpecialCharsChange}
+                  inputProps={{ "aria-label": "controlled" }}
+                />
+              </div>
+            </div>
+            <button
+              className="uppercase rounded border bg-blue-500 px-8 py-4 text-white my-4 md:text-4xl font-lobster"
+              onClick={handleGeneratePassword}
+            >
+              Generate
+            </button>
           </div>
+          {password && (
+            <>
+              <h1 className="text-2xl mt-5 font-lobster mb-5">Your password is : </h1>
+              <strong className="border-2 px-4 py-1 rounded border-blue-500 border-4 text-2xl">
+                {password}
+              </strong>
+            </>
+          )}
         </div>
-        <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
-          <h4 className="text-2xl m-0">Uppercase</h4>
-          <div className="flex my-2">
-            <Checkbox
-              checked={uppercaseChecked}
-              onChange={handleUppercaseChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          </div>
-        </div>
-        <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
-          <h4 className="text-2xl m-0">Include Numbers</h4>
-          <div className="flex my-2">
-            <Checkbox
-              checked={numbersChecked}
-              onChange={handleNumbersChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          </div>
-        </div>
-        <div className="flex justify-between items-center w-full shadow-lg hover:cursor-pointer py-2 px-4 mb-4">
-          <h4 className="text-2xl m-0">Include Special Characters</h4>
-          <div className="flex my-2">
-            <Checkbox
-              checked={specialCharsChecked}
-              onChange={handleSpecialCharsChange}
-              inputProps={{ "aria-label": "controlled" }}
-            />
-          </div>
-        </div>
-        <button
-          className="uppercase rounded border bg-blue-500 p-3 text-white w-1/3 my-4 text-2xl"
-          onClick={handleGeneratePassword}
-        >
-          Generate
-        </button>
       </div>
-      {password && (
-        <h1 className="text-lg mt-5">
-          Your password is :{" "}
-          <i>
-            <strong className="border-2 px-4 py-1 rounded border-blue-500 ">
-              {password}
-            </strong>
-          </i>
-        </h1>
-      )}
     </div>
   );
 }
