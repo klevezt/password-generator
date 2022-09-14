@@ -1,7 +1,7 @@
 {
   "name": "password-generator",
   "private": true,
-  "proxy": "https://klevezt.github.io/password-generator",
+  "proxy": "http://kpwork.site",
   "version": "0.0.0",
   "scripts": {
     "predeploy": "npm run build",
