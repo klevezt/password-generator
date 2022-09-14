@@ -116,20 +116,21 @@ function App() {
   };
 
   return (
-    <div className="relative">
+    <div className="relative ">
       <div
-        className="absolute h-[100vh]"
+        className="absolute"
         style={{
           backgroundRepeat: "no-repeat",
           width: "100%",
+          height: "100%",
           backgroundSize: "cover",
           backgroundPosition: "center center",
           backgroundImage: "url(blackboard.jpg)",
           zIndex: "-1",
         }}
       ></div>
-      <div className="flex justify-center items-center h-[100vh] relative">
-        <div className="m-auto w-3/5 text-center p-5 md:p-10 z-1 bg-yellow-200/[.85] rounded">
+      <div className="flex justify-center items-center min-h-[100vh]">
+        <div className="my-10 md:w-3/5 text-center p-5 md:p-10 z-1 bg-yellow-200/[.85] rounded">
           <h2 className="text-5xl mb-4 font-lobster">Password Generator</h2>
           <hr className="my-10 border border-black" />
           <div>
