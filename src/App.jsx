@@ -1,17 +1,23 @@
 import {
-  Button,
   Checkbox,
   IconButton,
   Input,
+  Slide,
   Slider,
   Snackbar,
 } from "@mui/material";
-import React, { useState } from "react";
+import MuiAlert from "@mui/material/Alert";
+
+import React, { forwardRef, useState } from "react";
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const letters = "abcdefghijklmnopqrstuvwxyz";
 const numbers = "0123456789";
 const specialChars = "!@#$%^&*()+_?";
+
+function TransitionUp(props) {
+  return <Slide {...props} direction="up" />;
+}
 
 function App() {
   const [password, setPassword] = useState(null);
@@ -20,19 +26,30 @@ function App() {
   const [uppercaseChecked, setUppercaseChecked] = useState(false);
   const [specialCharsChecked, setSpecialCharsChecked] = useState(false);
   const [numbersChecked, setNumbersChecked] = useState(false);
+  const [transition, setTransition] = useState(undefined);
 
-  const [open, setOpen] = useState();
 
-  const handleClick = () => () => {
+  const [open, setOpen] = useState(false);
+  const Alert = forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClick = (Transition) => {
+    setTransition(() => Transition);
+
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
     setOpen(false);
   };
 
   const handleCopy = () => {
-    handleClick();
+    handleClick(TransitionUp);
     navigator.clipboard.writeText(password);
   };
 
@@ -195,10 +212,18 @@ function App() {
               <Snackbar
                 anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                 open={open}
-                autoHideDuration={6000}
+                autoHideDuration={2000}
                 onClose={handleClose}
-                message="Copied!"
-              />
+                TransitionComponent={transition}
+              >
+                <Alert
+                  onClose={handleClose}
+                  severity="success"
+                  sx={{ width: "100%" }}
+                >
+                  Copied!
+                </Alert>
+              </Snackbar>
             </>
           )}
         </div>
