@@ -1,5 +1,13 @@
-import { Checkbox, Input, Slider } from "@mui/material";
-import { useState, useEffect } from "react";
+import {
+  Button,
+  Checkbox,
+  IconButton,
+  Input,
+  Slider,
+  Snackbar,
+} from "@mui/material";
+import React, { useState } from "react";
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 const letters = "abcdefghijklmnopqrstuvwxyz";
 const numbers = "0123456789";
@@ -13,16 +21,20 @@ function App() {
   const [specialCharsChecked, setSpecialCharsChecked] = useState(false);
   const [numbersChecked, setNumbersChecked] = useState(false);
 
-  useEffect(() => {
-    const exec = async () => {
-      const res = await fetch(
-        "https://klevezt.github.io/password-generator/db.json"
-      );
-      const result = await res.json();
-      console.log(result);
-    };
-    exec();
-  });
+  const [open, setOpen] = useState();
+
+  const handleClick = () => () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleCopy = () => {
+    handleClick();
+    navigator.clipboard.writeText(password);
+  };
 
   const letterCheck = (lettersArr, letterRnd, psw) => {
     let p = psw;
@@ -58,7 +70,6 @@ function App() {
       }
     }
     setPassword(psw.toString());
-    console.log(psw);
   };
 
   const handleUppercaseChange = (event) => {
@@ -177,12 +188,19 @@ function App() {
               </h1>
               <strong className="border-2 px-4 py-1 rounded border-blue-500 border-4 text-2xl">
                 {password}
+                <IconButton onClick={handleCopy}>
+                  <ContentCopyIcon color="primary" />
+                </IconButton>
               </strong>
+              <Snackbar
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                open={open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                message="Copied!"
+              />
             </>
           )}
-          <div className="text-end mt-4">
-            <small>Passwords used: {}</small>
-          </div>
         </div>
       </div>
     </div>
