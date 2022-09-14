@@ -1,7 +1,7 @@
 {
   "name": "password-generator",
   "private": true,
-  "proxy": "http://kpwork.site",
+  "proxy": "http://kpwork.site/password-generator",
   "version": "0.0.0",
   "scripts": {
     "predeploy": "npm run build",
