@@ -1,7 +1,6 @@
 {
   "name": "password-generator",
   "private": true,
-  "homepage": "http://kpwork.site/password-generator",
   "version": "0.0.0",
   "scripts": {
     "predeploy": "npm run build",
