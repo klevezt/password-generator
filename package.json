@@ -2,6 +2,7 @@
   "name": "password-generator",
   "private": true,
   "version": "0.0.0",
+  "homepage": "https://generator.kpwork.site/",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
